@@ -1,23 +1,35 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import NavbarExample from './Components/UI/Navbar';
+import Dashboard from './Components/Pages/Dashboard';
+import Departments from './Components/Pages/Departments';
+import Login from './Components/Pages/Login';
+import  Employee from './Components/Pages/Employee';
+import Leave from './Components/Pages/Leave';
+import Tickets from './Components/Pages/Tickets';
+
+
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+      <NavbarExample/>
+      <Routes>
+        <Route path='/' element={<Dashboard></Dashboard>}></Route>
+        <Route path='/department' element={<Departments></Departments>}></Route>
+        <Route path='/login' element={<Login></Login>}></Route>
+        <Route path='/employee' element={<Employee></Employee>}></Route>
+        <Route path='/leave' element={<Leave></Leave>}></Route>
+        <Route path='/tickets' element={<Tickets></Tickets>}></Route>
+
+        
+      </Routes>
+      </BrowserRouter>
+     
+    
     </div>
   );
 }
