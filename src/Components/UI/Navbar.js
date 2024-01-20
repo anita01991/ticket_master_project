@@ -1,30 +1,43 @@
-import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import { Link, useNavigate } from 'react-router-dom';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faSignInAlt, faUserPlus, faBars } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
-
-const NavbarExample = () => {
+const Navbar = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     return (
         <div>
-           <>
-                <Navbar bg="dark" data-bs-theme="dark">
-                    <Container>
-                        {/* <Navbar.Brand href="#home">Navbar</Navbar.Brand> */}
-                        <Nav className="me-auto">
-                            <Nav.Link href="#">Dashboard</Nav.Link>
-                            <Nav.Link href="#login">Login</Nav.Link>
-                            <Nav.Link href="#department">Departments</Nav.Link>
-                            <Nav.Link href="#employee">Employee</Nav.Link>
-                            <Nav.Link href="#leave">Leave</Nav.Link>
-                            <Nav.Link href="#tickets">Tickets</Nav.Link>
+            <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
+                <a className="navbar-brand" href="/">Tickets Master</a>
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
-                        </Nav>
-                    </Container>
-                </Navbar>
-            </>
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                            <Link className="nav-link " to="/" >Dashboard</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="employee">Employee</Link>
+                        </li>
+
+                        <li className="nav-item">
+                            <Link className="nav-link " to="department" >Department</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link " to="leave" >Leave</Link>
+                        </li>
+
+                        <li className="nav-item">
+                            <Link className="nav-link " to="tickets" > Tickets</Link>
+                        </li>
+                    </ul>
+                    <div className="d-flex form-group">
+                        <button className=" btn btn-outline-success me-2" type="button"><Link to={'\login'}>Login</Link></button >
+                    </div>
+
+                </div>
+            </nav>
         </div>
     );
 };
 
-export default NavbarExample;
+export default Navbar;
