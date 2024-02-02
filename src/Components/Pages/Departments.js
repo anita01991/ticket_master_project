@@ -8,9 +8,9 @@ import { FaTimes } from 'react-icons/fa';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Departments = () => {
-    const ApiEndPoint = 'https://freeapi.miniprojectideas.com/api/Tickets/';
+    const ApiEndPoint = 'https://freeapi.gerasim.in/api/Tickets/';
 
-    let [loading, setLoading] = useState(true);
+    let [loading, setLoading] = useState(false);
     let [showForm, setShowfrom] = useState(false);
     let [showTable, setShowTable] = useState(false);
 
@@ -69,10 +69,12 @@ const Departments = () => {
             }
             else {
                 toast.error(response.data.message);
+                setLoading(false);
             }
 
         } catch (error) {
             toast.error(error.code);
+            setLoading(false);
 
         }
     }
@@ -103,9 +105,11 @@ const Departments = () => {
             }
             else {
                 toast.error(response.data.message);
+                setLoading(false);
             }
         } catch (error) {
             toast.error(error.code);
+            setLoading(false);
 
         }
     }
@@ -115,8 +119,8 @@ const Departments = () => {
         if (isDelete) {
             try {
                 setLoading(true);
-                const response=await axios.delete(ApiEndPoint+'DeleteDepartment?id='+id);
-                if(response.data.result){
+                const response = await axios.delete(ApiEndPoint + 'DeleteDepartment?id=' + id);
+                if (response.data.result) {
                     toast.success("Deparment Deleted Successfully");
                     getAllDeparment();
                     setLoading(false);
@@ -150,11 +154,12 @@ const Departments = () => {
     }
 
     return (
-        <div>
+        <div className='container-fluid'>
             <div className='row m-4'>
                 <div className='row'>
                     <div className='col-12 text-end'>
-                        <button className='btn btn-sm btn-info text-white text-end mb-2' onClick={() => { setShowfrom(!showForm) }}>Add Department</button>
+                        <button className='btn btn-sm btn-info text-white text-end mb-2' onClick={() => { setShowfrom(!showForm) }}>
+                            Add Department</button>
                     </div>
                 </div>
                 <div className={`${showForm ? 'col-8' : 'col-12'}`}>
@@ -176,7 +181,7 @@ const Departments = () => {
                         {
                             showTable && !loading && (
                                 <div className='card-body'>
-                                    <table className='table bordered'>
+                                    <table className='table table-bordered'>
                                         <thead>
                                             <tr>
                                                 <th>Sr No.</th>
@@ -194,9 +199,9 @@ const Departments = () => {
                                                     return (<tr key={index}>
                                                         <td>{index + 1}</td>
                                                         <td>{item.deptName}</td>
-                                                        <td>{item.deptHeadEmpId}</td>
+                                                        <td>{item.deptName}</td>
                                                         <td><button className='btn btn-sm btn-primary me-2' onClick={() => { editDeparmentData(item) }}><BsPencil /></button></td>
-                                                        <td> <button className='btn btn-sm btn-danger' onClick={()=>{deleteDeparment(item.deptId)}}><BsTrash /></button></td>
+                                                        <td> <button className='btn btn-sm btn-danger' onClick={() => { deleteDeparment(item.deptId) }}><BsTrash /></button></td>
                                                     </tr>)
                                                 })
                                             }
@@ -220,13 +225,13 @@ const Departments = () => {
                                                     <div className='card-body'>
                                                         <h5 className='card-title'>{item.deptName}</h5>
                                                         <p className='card-text'>
-                                                            <strong>Department Head Id:</strong> {item.deptHeadEmpId}
+                                                            <strong>Department Head:</strong> {item.deptHeadName}
                                                         </p>
                                                         <div className='d-flex justify-content-end'>
                                                             <button className='btn btn-sm btn-primary me-2' onClick={() => { editDeparmentData(item) }} >
                                                                 <BsPencil className='mb-1' />
                                                             </button>
-                                                            <button className='btn btn-sm btn-danger' onClick={()=>{deleteDeparment(item.deptId)}}>
+                                                            <button className='btn btn-sm btn-danger' onClick={() => { deleteDeparment(item.deptId) }}>
                                                                 <BsTrash className='mb-1' />
                                                             </button>
                                                         </div>
@@ -265,7 +270,7 @@ const Departments = () => {
                                             <option value=''>Select Head</option>
                                             {
                                                 getEmployeeList.map((item, index) => {
-                                                    return (<option value={item.employeeId}>{item.employeeName}</option>)
+                                                    return (<option key={index} value={item.employeeId}>{item.employeeName}</option>)
                                                 })
                                             }
                                         </select>
@@ -273,7 +278,7 @@ const Departments = () => {
                                     </div>
                                     <div className='row mt-3'>
                                         <div className='col-6  text-start'>
-                                            {departmentObj.deptId === 0 && <button className='btn btn-success' disabled={departmentObj.deptName===''||departmentObj.deptHeadEmpId===''} onClick={addDepartment}> {loading ? 'Saving...' : 'Save'}</button>}
+                                            {departmentObj.deptId === 0 && <button className='btn btn-success' disabled={departmentObj.deptName === '' || departmentObj.deptHeadEmpId === ''} onClick={addDepartment}> {loading ? 'Saving' : 'Save'}</button>}
                                             {departmentObj.deptId !== 0 && <button className='btn btn-warning' onClick={updateDeaprmentData}> {loading ? 'Updating...' : 'Update'}</button>}
                                         </div>
                                         <div className='col-6 text-end'>
